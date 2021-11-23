@@ -1,0 +1,17 @@
+---
+- hosts: remotemachine
+  become: yes
+  become_user: ubuntu
+  become_method: sudo
+  
+  tasks:
+    - name: copying file with playbook
+      become: true 
+      copy:
+        src: /mnt/artefact/spring-petclinic-2.5.0-SNAPSHOT.jar
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu        
+        mode: 0644
+    - name: installing server
+      shell: java -jar /home/ubuntu/spring-petclinic-2.5.0-SNAPSHOT.jar
